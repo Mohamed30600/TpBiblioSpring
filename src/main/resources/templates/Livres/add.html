@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/199/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title th:text="${titre}">Titre</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<h1 th:text="${titre}"></h1>
+	<form th:action="@{/livre/add}" th:object="${livreForm}"
+		method="post">
+		Autheur
+		<input type="text" th:field="*{auteur}"/>
+		<br/>
+		titre:
+		<input type="text" th:field="*{titre}"/>
+		<br/>
+		<input type="submit" value="Create" />
+	</form>
+	<a th:href="@{/livre/livres}">retour</a>
+</body>
+</html>
