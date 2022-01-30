@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import fr.diginamic.webmvc01.execptions.ErrorEmprunt;
 import fr.diginamic.webmvc01.model.Client;
 import fr.diginamic.webmvc01.model.Emprunt;
 import fr.diginamic.webmvc01.model.Livre;
@@ -35,13 +36,22 @@ public class EmpruntController {
 	@Autowired
 	JpaLivre jpaLivre;
 	
+	private String message;
+	
 	public EmpruntController() {
 		
 	}
 	
+		
+	/**
+	 * recuepration et affichage liste des emprunt 
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/emprunts")
 	public String findall(Model model) {
 		model.addAttribute("emprunts", (List<Emprunt>)jpaEmprunt.findAll());
+		
 		model.addAttribute("titre", "liste des emprunt");
 		return "emprunts/Liste";	
 	}
@@ -59,6 +69,14 @@ public class EmpruntController {
 		
 		
 	}
+	/**
+	 * Ajout  d'emprunt 
+	 * @param model
+	 * @param empruntForm
+	 * @param result
+	 * @return
+	 * @throws Exception
+	 */
 	
 	@PostMapping("/add")
 	public String add(Model model , @Valid @ModelAttribute("empruntForm") Emprunt empruntForm ,BindingResult result) throws Exception {
@@ -76,6 +94,14 @@ public class EmpruntController {
 		return "redirect:/emprunt/emprunts";
 		
 			}
+	
+	/**
+	 * recuperation lsite livres et liste emprunts pour renvoyer au formulaire
+	 * et parmettre la mise a jour  
+	 * @param eid
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/update/{id}")
 	public String updateT(@PathVariable ("id") Integer eid,  Model model) {
 		Emprunt emprunt =jpaEmprunt.findById(eid).get();
@@ -89,10 +115,22 @@ public class EmpruntController {
 				
 		
 	}
+	/**
+	 * validation des modif faite a l emprunt via formulaire 
+	 * @param empruntForm
+	 * @param result
+	 * @return
+	 */
 	@PostMapping("/update")
-	public String update(@Valid @ModelAttribute("empruntForm") Emprunt empruntForm,BindingResult result) {
+	public String update(@Valid @ModelAttribute("empruntForm") Emprunt empruntForm,BindingResult result)throws ErrorEmprunt {
 		if(result.hasErrors()) {
-			//gere les erreur
+			message="";
+			result.getFieldErrors().forEach(e -> {
+				message += e.getField() + " - " + e.getDefaultMessage() +" * ";
+			});
+			throw new ErrorEmprunt(message);
+		
+			
 		}
 		
 		jpaEmprunt.save(empruntForm);
@@ -119,23 +157,7 @@ public class EmpruntController {
 		return "redirect:/emprunt/emprunts";
 	}
 	
-//	@GetMapping("/update/{id}")
-//	public String edit(Model model,@PathVariable("id")Integer id) {
-//		Emprunt l = jpaEmprunt.findById(id).get();
-//		model.addAttribute("livreForm",l);		
-//		return "livres/update";
-//	}
-	
-//	@PostMapping("/update")
-//	public String update(@Valid @ModelAttribute("livreForm") Livre livreForm, BindingResult result) {
-//		if(result.hasErrors()) {
-//			//gere les erreur
-//		}
-//	
-//	jpaEmprunt.save(livreForm);
-//	
-//	return "redirect:/livre/livres";
-//	}
+
 	
 
 }

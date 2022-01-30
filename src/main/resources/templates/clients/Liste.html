@@ -9,32 +9,50 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-	
-	<title th:text="${titre}">Titre</title>
+
+<title th:text="${titre}">Titre</title>
 </head>
 <body>
-	<h1 th:text="${titre}"></h1>
+<div  th:replace="fragments/menu :: tagmenu"></div>
+	<div class="container">
+		<div class="panel panel-succes">
+			<div class="panel-heading" th:text="${titre}">test</div>
+			<div class="panel-body">
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Nom</th>
+							<th>Prenom</th>
+							<th>Liste des livre empreunter</th>
+							<th>Modifier</th>
+							<th>Supprimer</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="client : ${clients}">
+							<td th:text="${client.nom}"></td>
+							<td th:text="${client.prenom}"></td>
+							
+						
+							
+							<td><a class="btn btn-success"
+								th:href="@{/client/update/{id}(id=${client.id})}">Modifier</a></td>
+							<td><a class="btn btn-danger"
+								th:href="@{/client/delete/{id}(id=${client.id})}">supprimer</a>
+							</td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+
+
+
+	<a class="btn btn-primary" th:href="@{/client/add}">AjoutClient</a>
 	<br />
-	<a th:href="@{/client/add}">AjoutClient</a>
-	<br/>
-	<table>
-		<thead>
-			<tr>
-				<th>Nom</th>
-				<th>Prenom</th>
-				<th>Modifier</th>
-				<th>Supprimer</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="client : ${clients}">
-				<td	th:text="${client.nom}"></td>
-				<td th:text = "${client.prenom}"></td>
-				<td><a th:href="@{/client/update/{id}(id=${client.id})}">Modifier</a> </td> 
-				<td><a th:href="@{/client/delete/{id}(id=${client.id})}">supprimer</a> </td> 
-				
-			</tr>	
-		</tbody>
-	</table>
 </body>
 </html>

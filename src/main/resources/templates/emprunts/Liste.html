@@ -13,11 +13,12 @@
 	<title th:text="${titre}">Titre</title>
 </head>
 <body>
+<div  th:replace="fragments/menu :: tagmenu"></div>
 	<h1 th:text="${titre}"></h1>
 	<br />
 	<a th:href="@{/emprunt/add}">ajoutEmprunt</a>
 	<br/>
-	<table>
+	<table class="table">
 		<thead>
 			<tr>
 				<th>Date_debut  </th>
@@ -41,8 +42,8 @@
 				
 				
 				
-				<td><a th:href="@{/emprunt/update/{id}(id=${emprunt.id})}">Modifier</a> </td> 
-				<td><a th:href="@{/emprunt/delete/{id}(id=${emprunt.id})}">supprimer</a> </td> 
+				<td><a class="btn btn-success"  th:href="@{/emprunt/update/{id}(id=${emprunt.id})}">Modifier</a> </td> 
+				<td><a class="btn btn-danger" th:href="@{/emprunt/delete/{id}(id=${emprunt.id})}">supprimer</a> </td> 
 				
 			</tr>	
 		</tbody>

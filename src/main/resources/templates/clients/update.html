@@ -5,20 +5,32 @@
 <meta charset="ISO-8859-1">
 <title th:text="${titre}">Titre</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
 </head>
 <body>
+<div  th:replace="fragments/menu :: tagmenu"></div>
+	<div class="container">
 	<h1 th:text="${titre}"></h1>
-	<form th:action="@{/client/update}" th:object="${clientForm}"
+	  <form th:action="@{/client/update}" th:object="${clientForm}"
 		method="post">
-		firstname:
-		<input type="hidden" th:field="*{id}"/>
-		<input type="text" th:field="*{prenom}"/>
-		<br/>
-		LastName:
-		<input type="text" th:field="*{nom}"/>
-		<br/>
-		<input type="submit" value="Create" />
+		    <div class="form-group">
+                   <label for="nom">Entrez votre prenom</label>
+                  <input type="hidden" th:field="*{id}"/>
+                   <input type="text" th:field="*{nom}" class="form-control" id="nom" placeholder="dupond ">
+            </div>
+             <div class="form-group">
+                   <label for="nom">Entrez votre nom</label>
+                   <input type="text" th:field="*{prenom}" class="form-control" id="nom" placeholder="alexandre ">
+            </div>
+		
+		
+		<input class="btn btn-success"   type="submit" value="Create" />
 	</form>
-	<a th:href="@{/client/clients}">retour</a>
+	</div>
+	<a class="btn btn-primary btn-lg" th:href="@{/client/clients}">retour</a>
+	
 </body>
 </html>

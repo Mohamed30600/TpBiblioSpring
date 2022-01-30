@@ -5,33 +5,49 @@
 <meta charset="ISO-8859-1">
 <title th:text="${titre}">Titre</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
 </head>
 <body>
-	<h1 th:text="${titre}"></h1>
-	<form th:action="@{/emprunt/add}" th:object="${empruntForm}"
-		method="post">
-		date_debut
-		<input type="text" th:field="*{date_debut}"/>
-		<br/>
-		date_fin:
-		<input type="text" th:field="*{date_fin}"/>
-		<br/>
-		delai:
-		<input type="text" th:field="*{delai}"/>
-		<br/>
-		<p>faite votre choix parmi clients:</p>
-		<select  th:field="*{clientEmprunt}">
-		<option th:each= "client :${listClients}" th:value="${client.id}" th:text="${client.nom}">
-		</select>
-		<br/>
-		
-		<p>faite votre choix parmi livres:</p>
-		<select  th:field="*{empruntLivres}">
-		<option th:each= "livre :${listLivres}" th:value="${livre.id}" th:text="${livre.titre}">
-		</select>
-		<br/>
-		<input type="submit" value="Create" />
-	</form>
+<div  th:replace="fragments/menu :: tagmenu"></div>
+
+	<div class="container">
+		<h1 th:text="${titre}"></h1>
+		<form th:action="@{/emprunt/add}" th:object="${empruntForm}"
+			method="post">
+			<div class="form-group">
+				<label for="date">Entrez Date_debut Prêt</label> <input type="date"
+					th:field="*{date_debut}" class="form-control" id="date"
+					placeholder="yyy-mm-dd ">
+			</div>
+			<div class="form-group">
+				<label for="date">Entrez Date_fin Prêt</label> <input type="date"
+					th:field="*{date_fin}" class="form-control" id="date"
+					placeholder="yyy-mm-dd ">
+			</div>
+			<div class="form-group">
+				<label for="date">Entrez le delai</label> <input type="number"
+					th:field="*{delai}" class="form-control" id="date"
+					placeholder="yyy-mm-dd ">
+			</div>
+			<div>
+				Choix du client: <select class="form-select"
+					th:field="*{clientEmprunt}">
+					<option th:each="client :${listClients}" th:value="${client.id}"
+						th:text="${client.nom}">
+				</select> Choix du livre : <select class="form-select"
+					th:field="*{empruntLivres}">
+					<option th:each="livre :${listLivres}" th:value="${livre.id}"
+						th:text="${livre.titre}">
+				</select>
+
+				<input class="btn btn-success" type="submit" value="Create" />
+		</form>
+	</div>
+
+
 	<a th:href="@{/emprunt/emprunts}">retour</a>
 </body>
 </html>

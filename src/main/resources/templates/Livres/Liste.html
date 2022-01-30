@@ -13,11 +13,12 @@
 	<title th:text="${titre}">Titre</title>
 </head>
 <body>
+<div  th:replace="fragments/menu :: tagmenu"></div>
 	<h1 th:text="${titre}"></h1>
 	<br />
 	<a th:href="@{/livre/add}">AjoutLivre</a>
 	<br/>
-	<table>
+	<table class="table">
 		<thead>
 			<tr>
 				<th>autheur</th>
@@ -30,8 +31,8 @@
 			<tr th:each="livre : ${livres}">
 				<td	th:text="${livre.auteur}"></td>
 				<td th:text = "${livre.titre}"></td>
-				<td><a th:href="@{/livre/update/{id}(id=${livre.id})}">Modifier</a> </td> 
-				<td><a th:href="@{/livre/delete/{id}(id=${livre.id})}">supprimer</a> </td> 
+				<td><a class="btn btn-success" th:href="@{/livre/update/{id}(id=${livre.id})}">Modifier</a> </td> 
+				<td><a class="btn btn-danger" th:href="@{/livre/delete/{id}(id=${livre.id})}">supprimer</a> </td> 
 				
 			</tr>	
 		</tbody>

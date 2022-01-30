@@ -5,19 +5,30 @@
 <meta charset="ISO-8859-1">
 <title th:text="${titre}">Titre</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
 </head>
 <body>
+<div  th:replace="fragments/menu :: tagmenu"></div>
+	<div class="container">
 	<h1 th:text="${titre}"></h1>
-	<form th:action="@{/livre/add}" th:object="${livreForm}"
+	  <form th:action="@{/livre/add}" th:object="${livreForm}"
 		method="post">
-		Autheur
-		<input type="text" th:field="*{auteur}"/>
-		<br/>
-		titre:
-		<input type="text" th:field="*{titre}"/>
-		<br/>
-		<input type="submit" value="Create" />
+		    <div class="form-group">
+                   <label for="nom">Entrez  votre Autheur </label>
+                   <input type="text" th:field="*{auteur}" class="form-control" id="nom" placeholder="autheur ">
+            </div>
+             <div class="form-group">
+                   <label for="nom">Entrez votre Titre</label>
+                   <input type="text" th:field="*{titre}" class="form-control" id="nom" placeholder="titre ">
+            </div>
+		
+		
+		<input class="btn btn-success"   type="submit" value="Create" />
 	</form>
-	<a th:href="@{/livre/livres}">retour</a>
+	</div>
+	<a class="btn btn-primary btn-lg" th:href="@{/client/clients}">RETOUR</a>
 </body>
 </html>
