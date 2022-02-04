@@ -44,12 +44,9 @@ public class Emprunt {
 	@JoinColumn(name="id_client")
 	private Client clientEmprunt;
 	
-	@Transient
+	//@Transient
+	@ManyToMany(mappedBy = "livreEmpruntes", fetch = FetchType.EAGER)
 	private Set<Livre> empruntLivres;
-	
-	
-	
-	
 	
 	
 public Set<Livre> getEmpruntLivres() {

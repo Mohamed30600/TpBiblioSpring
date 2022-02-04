@@ -13,7 +13,7 @@
 <title th:text="${titre}">Titre</title>
 </head>
 <body>
-<div  th:replace="fragments/menu :: tagmenu"></div>
+	<div th:replace="fragments/menu :: tagmenu"></div>
 	<div class="container">
 		<div class="panel panel-succes">
 			<div class="panel-heading" th:text="${titre}">test</div>
@@ -24,7 +24,7 @@
 						<tr>
 							<th>Nom</th>
 							<th>Prenom</th>
-							<th>Liste des livre empreunter</th>
+							<th>Liste des livre emprunter</th>
 							<th>Modifier</th>
 							<th>Supprimer</th>
 						</tr>
@@ -33,9 +33,15 @@
 						<tr th:each="client : ${clients}">
 							<td th:text="${client.nom}"></td>
 							<td th:text="${client.prenom}"></td>
-							
-						
-							
+							<td>
+								<ul>
+									<div th:each="emp : ${jpaClient.getEmpruntByClient(client.id)}">
+										<li th:each="livre: ${emp.empruntLivres}" th:text="${livre.titre}"></li>
+									</div>
+
+								</ul>
+							</td>
+
 							<td><a class="btn btn-success"
 								th:href="@{/client/update/{id}(id=${client.id})}">Modifier</a></td>
 							<td><a class="btn btn-danger"

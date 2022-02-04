@@ -51,8 +51,10 @@ public class ClientContoller {
 	 */
 	@GetMapping("/clients")
 	public String findall(Model model) {
+		model.addAttribute("jpaClient", jpaClient);
 		model.addAttribute("clients", (List<Client>) jpaClient.findAll());
 		model.addAttribute("titre", "liste des clients");
+		model.addAttribute("emp", jpaLivre.findAll());
 		return "clients/Liste";
 	}
 	
@@ -91,7 +93,6 @@ public class ClientContoller {
 		}
 		jpaClient.save(clientForm);
 		return "redirect:/client/clients";
-
 	}
 		/**
 		 * suppression du client via son id recupere préalablement
